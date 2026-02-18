@@ -7,7 +7,7 @@ type EventRow = {
 	id: number;
 	name: string;
 	description: string | null;
-	date: string;
+	event_time: Date | null;
 	location: string | null;
 	budget: number | null;
 	clubName: string;
@@ -34,7 +34,7 @@ function EventList({ events }: { events: EventRow[] }) {
 										{event.name}
 									</span>
 									<span className="shrink-0 font-mono text-xs text-faint">
-										{event.date}
+										{String(event.event_time)}
 									</span>
 								</summary>
 								<div className="space-y-2 pb-4 pl-1">
@@ -80,15 +80,15 @@ export default async function EventsPage() {
 			id: events.id,
 			name: events.name,
 			description: events.description,
-			date: events.date,
+			event_time: events.event_time,
 			location: events.location,
 			budget: events.budget,
 			clubName: clubs.name,
 		})
 		.from(events)
 		.innerJoin(clubs, eq(events.clubId, clubs.id))
-		.where(gte(events.date, today))
-		.orderBy(events.date);
+		.where(gte(events.event_time, new Date(today)))
+		.orderBy(events.event_time);
 
 	return (
 		<main className="min-h-screen selection:bg-accent selection:text-black">

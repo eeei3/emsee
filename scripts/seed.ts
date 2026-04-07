@@ -3,11 +3,11 @@ import db from "../db";
 import { clubs, events } from "../db/schema";
 
 const seedClubs = [
-  { name: "Computer Science Club", email: "cs.club@utsc.ca" },
-  { name: "Debate Society", email: "debate@utsc.ca" },
-  { name: "Photography Club", email: "photo.club@utsc.ca" },
-  { name: "Robotics Team", email: "robotics@utsc.ca" },
-  { name: "Environmental Alliance", email: "green@utsc.ca" },
+	{ name: "Computer Science Club", email: "cs.club@utsc.ca" },
+	{ name: "Debate Society", email: "debate@utsc.ca" },
+	{ name: "Photography Club", email: "photo.club@utsc.ca" },
+	{ name: "Robotics Team", email: "robotics@utsc.ca" },
+	{ name: "Environmental Alliance", email: "green@utsc.ca" },
 ];
 
 const seedEvents = [
@@ -17,14 +17,14 @@ const seedEvents = [
 ];
 
 async function seed() {
-  console.log("Seeding database...");
+	console.log("Seeding database...");
 
-  for (const club of seedClubs) {
-    await db
-      .insert(clubs)
-      .values(club)
-      .onConflictDoNothing({ target: clubs.email });
-  }
+	for (const club of seedClubs) {
+		await db
+			.insert(clubs)
+			.values(club)
+			.onConflictDoNothing({ target: clubs.email });
+	}
 
   for (const event of seedEvents) {
     await db
@@ -36,7 +36,7 @@ async function seed() {
   process.exit(0);
 }
 
-seed().catch((err) => {
-  console.error("Seeding failed:", err);
-  process.exit(1);
+seed().catch(err => {
+	console.error("Seeding failed:", err);
+	process.exit(1);
 });

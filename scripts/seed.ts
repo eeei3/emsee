@@ -1,6 +1,6 @@
 import "dotenv/config";
 import db from "../db";
-import { clubs, events } from "../db/schema";
+import { clubs } from "../db/schema";
 
 const seedClubs = [
 	{ name: "Computer Science Club", email: "cs.club@utsc.ca" },
@@ -9,6 +9,12 @@ const seedClubs = [
 	{ name: "Robotics Team", email: "robotics@utsc.ca" },
 	{ name: "Environmental Alliance", email: "green@utsc.ca" },
 ];
+
+// const seedEvents = [
+//     { event_name: "fun party", desc: "I promise it's fun", loc: "IA 2060", time: new Date("2011-10-10T14:48:00"), cost: 0.0, max_att: 5, curr_att: 5},
+//     { event_name: "not fun party", desc: "It can't get worse", loc: "Nowhere", time: new Date("2096-10-10T22:00:00"), cost: 10.99, max_att: 0, curr_att: 5},
+//     { event_name: "Welcome Party", desc: "You showed up", loc: "3325 Ellesmere Road", time: new Date("2026-05-10T08:48:00"), cost: 0.00, max_att: 20, curr_att: 15},
+// ];
 
 async function seed() {
 	console.log("Seeding database...");
@@ -19,30 +25,6 @@ async function seed() {
 			.values(club)
 			.onConflictDoNothing({ target: clubs.email });
 	}
-
-	const seedEvents = [
-		{
-			name: "Annual Hackathon",
-			description: "24-hour coding competition with prizes",
-			date: "2026-03-15",
-			location: "IC 200",
-			budget: 50000, // $500.00 in cents
-			clubId: 1,
-		},
-		{
-			name: "Photography Walk",
-			description: "Campus golden hour photography session",
-			date: "2026-03-20",
-			location: "The Valley",
-			budget: 5000, // $50.00 in cents
-			clubId: 3,
-		},
-	];
-
-	for (const event of seedEvents) {
-		await db.insert(events).values(event).onConflictDoNothing();
-	}
-
 	console.log("Seeding complete.");
 	process.exit(0);
 }

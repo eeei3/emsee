@@ -14,7 +14,8 @@ export default async function NewEventPage() {
 				name: (formData.get("name") as string).trim(),
 				description:
 					(formData.get("description") as string).trim() || null,
-				date: formData.get("date") as string,
+				event_time: new Date((formData.get("date") as string)),
+				// date: formData.get("date") as string,
 				location: (formData.get("location") as string).trim() || null,
 				budget: budgetStr
 					? Math.round(parseFloat(budgetStr) * 100)
